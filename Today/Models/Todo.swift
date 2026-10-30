@@ -11,7 +11,15 @@ struct Todo: Identifiable, Equatable, Hashable, Codable {
   var id = UUID()
   var order: Int
   var title: String
-  var isComplete = false
+  var createdAt = Date()
+  var completedAt: Date?
+  var isComplete = false {
+    didSet {
+      if isComplete != oldValue {
+        completedAt = isComplete ? Date() : nil
+      }
+    }
+  }
 
   var wrappedTitle: String {
     let words = title.components(separatedBy: .whitespaces)
@@ -43,6 +51,19 @@ struct Todo: Identifiable, Equatable, Hashable, Codable {
       let firstLetterValue = title.lowercased().first?.unicodeScalars.first?.value ?? 97
       return Int(firstLetterValue) + (isComplete ? 10000 : 0)
     }
+  }
+}
+
+extension Todo {
+  // Custom decoding so todos saved before dates were added still load.
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = try container.decode(UUID.self, forKey: .id)
+    order = try container.decode(Int.self, forKey: .order)
+    title = try container.decode(String.self, forKey: .title)
+    createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt) ?? Date()
+    completedAt = try container.decodeIfPresent(Date.self, forKey: .completedAt)
+    isComplete = try container.decodeIfPresent(Bool.self, forKey: .isComplete) ?? false
   }
 }
 

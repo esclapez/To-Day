@@ -23,6 +23,11 @@ struct EditGroup: View {
       .accessibilityElement()
       .accessibilityLabel("Edit to dos")
 
+      Button("Past Weeks…") {
+        openWindow(id: "past_weeks")
+        NSApp.activate(ignoringOtherApps: true)
+      }
+
       Button("Mark All Complete") {
         appState.markAll(complete: true)
       }

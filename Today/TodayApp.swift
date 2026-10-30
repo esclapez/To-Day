@@ -33,6 +33,12 @@ struct TodayApp: App {
     }
     .defaultSize(width: 350, height: 400)
 
+    Window("Past Weeks", id: "past_weeks") {
+      ArchiveView()
+        .environmentObject(appState)
+    }
+    .defaultSize(width: 650, height: 450)
+
     Window("About To-Day", id: "about_today") {
       AboutView()
     }

@@ -18,9 +18,24 @@ class AppState: ObservableObject {
 
   @AppStorage("completeHandling") var completeHandling = Completes.sortToEnd
   @AppStorage("todoSorting") var todoSorting = Sorts.dateTime
+  // Start of the week the current list belongs to, as seconds since 1970 (0 = not set yet).
+  @AppStorage("listWeekStart") var listWeekStart: Double = 0
 
   var dataStore = DataStore()
   var saveTask: DispatchWorkItem?
+  var rolloverObservers: [NSObjectProtocol] = []
+
+  init() {
+    rollOverIfNewWeek()
+    observeDateChanges()
+  }
+
+  deinit {
+    rolloverObservers.forEach { observer in
+      NotificationCenter.default.removeObserver(observer)
+      NSWorkspace.shared.notificationCenter.removeObserver(observer)
+    }
+  }
 
   func debouncedSave() {
     self.saveTask?.cancel()
@@ -35,6 +50,56 @@ class AppState: ObservableObject {
 
     self.saveTask = task
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: task)
+  }
+}
+
+// MARK: - Weekly Rollover
+
+extension AppState {
+  /// Archives last week's list and carries the unfinished todos into a new list
+  /// once the current week (as set by the system's first weekday) has started.
+  func rollOverIfNewWeek(now: Date = Date()) {
+    guard let thisWeekStart = Calendar.current.dateInterval(of: .weekOfYear, for: now)?.start else {
+      return
+    }
+
+    guard listWeekStart > 0 else {
+      // First run with weekly lists: adopt the existing list as this week's
+      // and save it so any dates added while loading are kept.
+      listWeekStart = thisWeekStart.timeIntervalSince1970
+      debouncedSave()
+      return
+    }
+
+    let listWeek = Date(timeIntervalSince1970: listWeekStart)
+    guard listWeek < thisWeekStart else {
+      return
+    }
+
+    if !todos.isEmpty {
+      guard dataStore.archive(ArchivedWeek(weekStart: listWeek, todos: todos)) else {
+        // Keep the current list rather than lose it; try again at the next check.
+        return
+      }
+    }
+
+    listWeekStart = thisWeekStart.timeIntervalSince1970
+    todos = todos.filter { !$0.isComplete }
+  }
+
+  func observeDateChanges() {
+    let checkRollover: (Notification) -> Void = { [weak self] _ in
+      self?.rollOverIfNewWeek()
+    }
+
+    rolloverObservers = [
+      NotificationCenter.default.addObserver(
+        forName: .NSCalendarDayChanged, object: nil, queue: .main, using: checkRollover
+      ),
+      NSWorkspace.shared.notificationCenter.addObserver(
+        forName: NSWorkspace.didWakeNotification, object: nil, queue: .main, using: checkRollover
+      )
+    ]
   }
 }
 
