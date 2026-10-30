@@ -12,6 +12,10 @@ This app is free, but if you'd like to support my work, please [Buy Me a Coffee]
 
 If you'd like to contact me, I'm [@troz@mastodon.social](https://mastodon.social/@troz) on Mastodon.
 
+This fork adds a couple of feature (while remaining lightweight):
+ - Completed todos are archived weekly (maybe daily at a later point) and dated
+ - A small colored Tag is added for visual aid in grouping the todos
+
 #### Things to fix:
 
 - [x] Editing - SwiftUI jumps the insertion cursor to the end of the field when editing an existing todo.
