@@ -31,6 +31,16 @@
         }
       }
     },
+    "%@ – %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – %2$@"
+          }
+        }
+      }
+    },
     "%lld of %lld done" : {
       "localizations" : {
         "de" : {
@@ -133,6 +143,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abgeschlossen"
+          }
+        }
+      }
+    },
+    "Completed %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abgeschlossen %@"
+          }
+        }
+      }
+    },
+    "Created %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellt %@"
           }
         }
       }
@@ -317,12 +347,42 @@
         }
       }
     },
+    "No archived weeks yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine archivierten Wochen."
+          }
+        }
+      }
+    },
     "No completed todos." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keine abgeschlossenen Einträge."
+          }
+        }
+      }
+    },
+    "Past Weeks" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vergangene Wochen"
+          }
+        }
+      }
+    },
+    "Past Weeks…" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vergangene Wochen…"
           }
         }
       }
@@ -337,12 +397,32 @@
         }
       }
     },
+    "Select a week" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Woche auswählen"
+          }
+        }
+      }
+    },
     "Show Completed" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abgeschlossene anzeigen"
+          }
+        }
+      }
+    },
+    "Show in Finder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Im Finder zeigen"
           }
         }
       }
