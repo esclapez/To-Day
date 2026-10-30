@@ -6,28 +6,12 @@
 //
 
 import SwiftUI
-import Sparkle
 
 struct AppGroup: View {
-  @Environment(\.openWindow) private var openWindow
-
-  private let updaterController = SPUStandardUpdaterController(
-    startingUpdater: true,
-    updaterDelegate: nil,
-    userDriverDelegate: nil
-  )
-
   var body: some View {
     Group {
       Divider()
         .accessibilityHidden(true)
-
-      CheckForUpdatesView(updater: updaterController.updater)
-
-      Button("About To-Day…") {
-        openWindow(id: "about_today")
-        NSApp.activate(ignoringOtherApps: true)
-      }
 
       Button("Quit To-Day") {
         NSApp.terminate(nil)

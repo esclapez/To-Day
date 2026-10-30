@@ -11,6 +11,16 @@
         }
       }
     },
+    "%@ – %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ – %2$@"
+          }
+        }
+      }
+    },
     "%@ complete" : {
       "localizations" : {
         "de" : {
@@ -27,16 +37,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ noch nicht abgeschlossen"
-          }
-        }
-      }
-    },
-    "%@ – %@" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ – %2$@"
           }
         }
       }
@@ -68,6 +68,7 @@
       }
     },
     "About To-Day" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -78,11 +79,22 @@
       }
     },
     "About To-Day…" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Über To-Day…"
+          }
+        }
+      }
+    },
+    "Blue" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blau"
           }
         }
       }
@@ -197,6 +209,26 @@
         }
       }
     },
+    "Delete tag %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag %@ löschen"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
+          }
+        }
+      }
+    },
     "Edit to dos" : {
       "localizations" : {
         "de" : {
@@ -223,6 +255,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Einträge bearbeiten…"
+          }
+        }
+      }
+    },
+    "Enter new tag and press Return" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuen Tag eingeben und Return drücken"
+          }
+        }
+      }
+    },
+    "Enter new tag and press Return:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuen Tag eingeben und Return drücken:"
           }
         }
       }
@@ -263,6 +315,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finde mich auf Mastodon"
+          }
+        }
+      }
+    },
+    "Gray" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grau"
+          }
+        }
+      }
+    },
+    "Green" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grün"
           }
         }
       }
@@ -367,6 +439,36 @@
         }
       }
     },
+    "No Tag" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Tag"
+          }
+        }
+      }
+    },
+    "No tags yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Tags."
+          }
+        }
+      }
+    },
+    "Orange" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        }
+      }
+    },
     "Past Weeks" : {
       "localizations" : {
         "de" : {
@@ -387,12 +489,42 @@
         }
       }
     },
+    "Pink" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rosa"
+          }
+        }
+      }
+    },
+    "Purple" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lila"
+          }
+        }
+      }
+    },
     "Quit To-Day" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beende To-Day"
+          }
+        }
+      }
+    },
+    "Red" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rot"
           }
         }
       }
@@ -453,6 +585,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Durchschlagen"
+          }
+        }
+      }
+    },
+    "Tag: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag: %@"
+          }
+        }
+      }
+    },
+    "Tags" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
+          }
+        }
+      }
+    },
+    "Tags…" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags…"
+          }
+        }
+      }
+    },
+    "Teal" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blaugrün"
           }
         }
       }
@@ -533,12 +705,32 @@
         }
       }
     },
+    "Use Tags… below to create tags." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstelle Tags mit „Tags…“ unten."
+          }
+        }
+      }
+    },
     "Use the **Edit Todos…** menu item to add, delete and edit your todos. Select them in the menu to mark them as complete or incomplete." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verwende den Menüpunkt **Einträge bearbeiten…**, um etwas hinzuzufügen, zu löschen und zu bearbeiten. Markiere im Menü einen Eintrag, um ihn als abgeschlossen oder nicht abgeschlossen zu markieren."
+          }
+        }
+      }
+    },
+    "Yellow" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gelb"
           }
         }
       }

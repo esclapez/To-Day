@@ -13,6 +13,8 @@ struct EditTodoView: View {
 
   var body: some View {
     HStack {
+      TagPickerButton(todo: $todo)
+
       TextField("", text: $todo.title)
         .labelsHidden()
         .padding(.trailing, 10)

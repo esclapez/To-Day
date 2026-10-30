@@ -11,6 +11,7 @@ struct EditButtons: View {
   @EnvironmentObject var appState: AppState
   @State private var deleteButtonLabel = "Delete All…"
   @State private var askForDeleteConfirmation = true
+  @State private var showingTagsEditor = false
 
   var body: some View {
     HStack {
@@ -22,12 +23,20 @@ struct EditButtons: View {
 
       Spacer()
 
+      Button("Tags…") {
+        showingTagsEditor = true
+      }
+
       Button("Mark All Incomplete") {
         appState.markAll(complete: false)
       }
       .disabled(appState.allIncomplete)
     }
     .padding([.horizontal, .bottom], 12)
+    .sheet(isPresented: $showingTagsEditor) {
+      TagsEditor()
+        .environmentObject(appState)
+    }
   }
 
   var deleteAllConfirmButton: some View {

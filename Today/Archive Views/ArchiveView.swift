@@ -67,7 +67,7 @@ struct ArchivedWeekView: View {
     List {
       Section {
         ForEach(week.todos.sorted(using: KeyPathComparator(\Todo.order))) { todo in
-          ArchivedTodoRow(todo: todo)
+          ArchivedTodoRow(todo: todo, tag: week.tag(for: todo))
         }
       } header: {
         Text("\(week.weekStart, format: .dateTime.day().month().year()) – \(week.weekEnd, format: .dateTime.day().month().year())")
@@ -78,6 +78,7 @@ struct ArchivedWeekView: View {
 
 struct ArchivedTodoRow: View {
   let todo: Todo
+  let tag: Tag?
 
   var body: some View {
     HStack(alignment: .firstTextBaseline) {
@@ -86,8 +87,15 @@ struct ArchivedTodoRow: View {
         .accessibilityHidden(true)
 
       VStack(alignment: .leading, spacing: 2) {
-        Text(todo.title)
-          .strikethrough(todo.isComplete)
+        HStack(spacing: 8) {
+          Text(todo.title)
+            .strikethrough(todo.isComplete)
+          if let tag {
+            TagBadge(tag: tag)
+              .font(.caption)
+              .foregroundColor(.secondary)
+          }
+        }
 
         Group {
           Text("Created \(todo.createdAt, format: .dateTime.weekday().day().month().hour().minute())")

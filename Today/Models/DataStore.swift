@@ -9,6 +9,7 @@ import Foundation
 
 struct DataStore {
   let fileURL = URL.documentsDirectory.appending(component: "todos.json")
+  let tagsFileURL = URL.documentsDirectory.appending(component: "tags.json")
   let archiveFolderURL = URL.documentsDirectory.appending(component: "Archive", directoryHint: .isDirectory)
 
   var encoder: JSONEncoder {
@@ -46,6 +47,31 @@ struct DataStore {
   }
 }
 
+// MARK: - Tags
+
+extension DataStore {
+  func saveTags(_ tags: [Tag]) {
+    do {
+      let data = try encoder.encode(tags)
+      try data.write(to: tagsFileURL)
+    } catch {
+      print(error)
+    }
+  }
+
+  func loadTags() -> [Tag] {
+    guard let data = try? Data(contentsOf: tagsFileURL) else {
+      return []
+    }
+    do {
+      return try decoder.decode([Tag].self, from: data)
+    } catch {
+      print(error)
+      return []
+    }
+  }
+}
+
 // MARK: - Archive
 
 extension DataStore {
@@ -60,18 +86,21 @@ extension DataStore {
   func archive(_ week: ArchivedWeek) -> Bool {
     let fileURL = archiveFileURL(for: week.weekStart)
     var todos = week.todos
+    var tags = week.tags ?? []
 
     if let data = try? Data(contentsOf: fileURL),
        let existing = try? decoder.decode(ArchivedWeek.self, from: data) {
       let newIDs = Set(todos.map(\.id))
       todos = existing.todos.filter { !newIDs.contains($0.id) } + todos
+      let newTagIDs = Set(tags.map(\.id))
+      tags = (existing.tags ?? []).filter { !newTagIDs.contains($0.id) } + tags
     }
 
     do {
       try FileManager.default.createDirectory(at: archiveFolderURL, withIntermediateDirectories: true)
       let encoder = encoder
       encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-      let data = try encoder.encode(ArchivedWeek(weekStart: week.weekStart, todos: todos))
+      let data = try encoder.encode(ArchivedWeek(weekStart: week.weekStart, todos: todos, tags: tags))
       try data.write(to: fileURL, options: .atomic)
       return true
     } catch {

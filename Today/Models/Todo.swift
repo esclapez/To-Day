@@ -11,6 +11,7 @@ struct Todo: Identifiable, Equatable, Hashable, Codable {
   var id = UUID()
   var order: Int
   var title: String
+  var tagID: UUID?
   var createdAt = Date()
   var completedAt: Date?
   var isComplete = false {
@@ -61,6 +62,7 @@ extension Todo {
     id = try container.decode(UUID.self, forKey: .id)
     order = try container.decode(Int.self, forKey: .order)
     title = try container.decode(String.self, forKey: .title)
+    tagID = try container.decodeIfPresent(UUID.self, forKey: .tagID)
     createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt) ?? Date()
     completedAt = try container.decodeIfPresent(Date.self, forKey: .completedAt)
     isComplete = try container.decodeIfPresent(Bool.self, forKey: .isComplete) ?? false

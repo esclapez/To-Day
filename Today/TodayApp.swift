@@ -38,12 +38,5 @@ struct TodayApp: App {
         .environmentObject(appState)
     }
     .defaultSize(width: 650, height: 450)
-
-    Window("About To-Day", id: "about_today") {
-      AboutView()
-    }
-    .defaultSize(width: 500, height: 630)
-    .defaultPosition(.center)
-    .windowResizability(.contentSize)
   }
 }

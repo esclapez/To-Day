@@ -16,6 +16,12 @@ class AppState: ObservableObject {
     }
   }
 
+  @Published var tags: [Tag] = DataStore().loadTags() {
+    didSet {
+      dataStore.saveTags(tags)
+    }
+  }
+
   @AppStorage("completeHandling") var completeHandling = Completes.sortToEnd
   @AppStorage("todoSorting") var todoSorting = Sorts.dateTime
   // Start of the week the current list belongs to, as seconds since 1970 (0 = not set yet).
@@ -77,7 +83,13 @@ extension AppState {
     }
 
     if !todos.isEmpty {
-      guard dataStore.archive(ArchivedWeek(weekStart: listWeek, todos: todos)) else {
+      let usedTagIDs = Set(todos.compactMap(\.tagID))
+      let week = ArchivedWeek(
+        weekStart: listWeek,
+        todos: todos,
+        tags: tags.filter { usedTagIDs.contains($0.id) }
+      )
+      guard dataStore.archive(week) else {
         // Keep the current list rather than lose it; try again at the next check.
         return
       }
@@ -165,9 +177,11 @@ extension AppState {
         Button {
           self.toggleComplete(todo.id)
         } label: {
-          Text(todo.wrappedTitle)
-            .foregroundColor(todo.isComplete ? .secondary : .primary)
-            .strikethrough(todo.isComplete ? true : false)
+          self.menuLabel(for: todo) {
+            Text(todo.wrappedTitle)
+              .foregroundColor(todo.isComplete ? .secondary : .primary)
+              .strikethrough(todo.isComplete ? true : false)
+          }
         }
       }
     }
@@ -183,7 +197,9 @@ extension AppState {
         Button {
           self.toggleComplete(todo.id)
         } label: {
-          Text(todo.wrappedTitle)
+          self.menuLabel(for: todo) {
+            Text(todo.wrappedTitle)
+          }
         }
       }
     }
@@ -199,9 +215,27 @@ extension AppState {
           Button {
             self.toggleComplete(todo.id)
           } label: {
-            Text(todo.wrappedTitle)
+            self.menuLabel(for: todo) {
+              Text(todo.wrappedTitle)
+            }
           }
         }
+      }
+    }
+  }
+
+  func tag(for todo: Todo) -> Tag? {
+    tags.first { $0.id == todo.tagID }
+  }
+
+  func menuLabel<Title: View>(for todo: Todo, @ViewBuilder title: () -> Title) -> some View {
+    Label {
+      title()
+    } icon: {
+      if let tag = tag(for: todo) {
+        Image(nsImage: tag.color.menuImage)
+          .renderingMode(.original)
+          .accessibilityLabel(tag.name)
       }
     }
   }
@@ -278,6 +312,17 @@ extension AppState {
     if response == .alertFirstButtonReturn {
       todos = []
     }
+  }
+
+  func createTag(name: String, color: TagColor) {
+    tags.append(Tag(name: name, color: color))
+  }
+
+  func deleteTag(_ tag: Tag) {
+    for index in todos.indices where todos[index].tagID == tag.id {
+      todos[index].tagID = nil
+    }
+    tags.removeAll { $0.id == tag.id }
   }
 
   func deleteAll() {
